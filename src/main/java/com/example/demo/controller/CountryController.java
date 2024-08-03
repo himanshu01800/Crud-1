@@ -2,24 +2,29 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Country;
 import com.example.demo.repository.CountryRepository;
+import com.example.demo.services.CountryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/country")
 public class CountryController {
 
+  private final CountryService countryService;
 
-
-    @GetMapping("/getCountry")
-    public ResponseEntity<Country>  getCountry(){
-        Country country=new Country();
-        country.setId(22);
-        country.setName("India");
-        country.setCapital("New Delhi");
-        return ResponseEntity.ok(country);
-
+    public CountryController(CountryService countryService) {
+        this.countryService = countryService;
     }
 
+    @GetMapping("/getcountry")
+    public ResponseEntity<List<Country>>  getCountry(){
+     return ResponseEntity.ok(countryService.getAllCountry());
+    }
 
+   @PostMapping
+    public ResponseEntity<Country> addCountry(@RequestBody Country country){
+     return ResponseEntity.ok(countryService.addCountry(country));
+   }
 }
