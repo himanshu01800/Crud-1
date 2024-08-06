@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CountryService {
@@ -24,4 +25,23 @@ public class CountryService {
    public List<Country> getAllCountry(){
         return countryRepository.findAll();
    }
+   public boolean updateCountry(Country country){
+       Optional<Country> country1=countryRepository.findById(country.getId());
+       if(country1.isPresent()){
+           countryRepository.save(country);
+           return true;
+       }
+       return false;
+   }
+
+    public Boolean deleteCountry(int id) {
+        Optional<Country> country=countryRepository.findById(id);
+        if(country.isPresent()){
+            countryRepository.delete(country.get());
+            return true;
+        }
+
+            return false;
+
+    }
 }

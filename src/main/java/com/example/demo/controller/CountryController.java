@@ -27,4 +27,14 @@ public class CountryController {
     public ResponseEntity<Country> addCountry(@RequestBody Country country){
      return ResponseEntity.ok(countryService.addCountry(country));
    }
+   @PutMapping
+    public ResponseEntity<Boolean> updateCountry(@RequestBody Country country){
+        return  ResponseEntity.ok(countryService.updateCountry(country));
+
+
+   }
+   @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteCountry(@PathVariable int id){
+        return ResponseEntity.ok(countryService.deleteCountry(id));
+   }
 }
